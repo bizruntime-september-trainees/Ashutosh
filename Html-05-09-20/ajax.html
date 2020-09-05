@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>jQuery Add / Remove Table Rows Dynamically</title>
+<style>
+  dynamicTable1{
+	width:50%;
+  }
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+
+    $(document).ready(function() {
+      const Url="https://postman-echo.com/get?foo1=bar1&foo2=bar2";
+      const data={
+        foo:1,
+        bar:"value"
+      }
+        var id = 0;
+           $("#addrow").click(function() {
+                    id++;           
+                    var row = $('.samplerow tr').clone(true);
+					row.attr('type',"text");
+					row.attr('type',"text");
+                     row.find("input:text").val("");
+                     row.attr('id',id); 
+                    row.appendTo('#dynamicTable1'); 
+                    row.append('<input type=text class="input" id=tb' + iCnt + ' ' +
+                    'value="Text Element ' + iCnt + '" />')					
+                     return false;
+                   });
+     
+        
+            //$('.remove').on("click", function() {
+            // $(this).parents("tr").remove();
+                //});
+            
+             $('.Submit').click(function(){
+             var formElements = new Array()
+			 $("#form :input").each(function(){
+			 var input=$(this);
+			 var textValue = $("input[type=text]").val()
+
+			  if((input.attr('type') == 'text'))
+             {
+
+			 formElements.push($(this));
+              }
+                    <!-- var input= $(this).find(':input') -->
+					 <!-- var input = $(this); -->
+					 <!-- console.log(input); -->
+					 //<-- Should return all input elements in that specific form.
+					 
+          });  
+				<!-- $("form :input").each(function(){ -->
+					<!-- formElements.push($(this)); -->
+					<!-- }); -->
+                  $.get(Url, function(data, status){
+                   console.log('${data}')
+               });
+          
+             })
+      });
+    
+   // })
+            
+</script>
+</head>
+<body>
+<div id="form">
+    <table id="dynamicTable1">
+        <thead>
+            <th>foo1</th>
+           
+        </thead>
+      <tr id="0">
+        <td><input type="text" id="fld1"/></td>
+        
+         <!--<td><button class="remove">Submit</button></td>-->
+      </tr>
+    </table>
+
+  <input type="button" id="addrow" value="Add New Row" />
+
+  <table class="samplerow" style="display:none">
+    <tr>
+      <td><input type="text" id="fld1"/></td>
+      
+       <button class="Submit">Submit</button>
+    </tr>
+  </table>
+  </div>
+</body> 
+</html>                            
